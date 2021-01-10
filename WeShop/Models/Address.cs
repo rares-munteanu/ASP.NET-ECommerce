@@ -6,7 +6,10 @@ namespace WeShop.Models
     {
         public int Id { get; set; }
 
-        //public Profile Profile { get; set; }
+        public Profile Profile { get; set; }
+
+        [Required]
+        public int ProfileId { get; set; }
 
         [Required]
         [StringLength(40, MinimumLength = 4, ErrorMessage = "County should be between 4 and 40 characters")]

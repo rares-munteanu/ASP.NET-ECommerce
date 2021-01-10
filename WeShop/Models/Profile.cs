@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace WeShop.Models
@@ -8,8 +9,9 @@ namespace WeShop.Models
         public int Id { get; set; }
 
         [Required]
-        public virtual User User { get; set; }
-        //public ICollection<Address> Address { get; set; }
+        public virtual User User { get; set; } // One-to-one cu User
+
+        public ICollection<Address> Address { get; set; }
 
         [Required]
         [StringLength(40, MinimumLength = 3, ErrorMessage = "First name should be between 3 and 40 characters")]
