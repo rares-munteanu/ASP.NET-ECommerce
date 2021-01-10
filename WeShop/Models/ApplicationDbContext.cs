@@ -4,7 +4,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace WeShop.Models
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<Address> Addresses { get; set; }

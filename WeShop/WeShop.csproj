@@ -187,12 +187,16 @@
     <Compile Include="Migrations\202101101754363_AddAddress.Designer.cs">
       <DependentUpon>202101101754363_AddAddress.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101101838591_LinkedUserToProfile.cs" />
+    <Compile Include="Migrations\202101101838591_LinkedUserToProfile.Designer.cs">
+      <DependentUpon>202101101838591_LinkedUserToProfile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
-    <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
@@ -385,6 +389,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101101754363_AddAddress.resx">
       <DependentUpon>202101101754363_AddAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101101838591_LinkedUserToProfile.resx">
+      <DependentUpon>202101101838591_LinkedUserToProfile.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
