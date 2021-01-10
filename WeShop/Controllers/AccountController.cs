@@ -164,6 +164,7 @@ namespace WeShop.Controllers
             return View(model);
         }
 
+
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]

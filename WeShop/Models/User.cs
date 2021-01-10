@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 using Microsoft.AspNet.Identity;
@@ -10,6 +11,8 @@ namespace WeShop.Models
     public class User : IdentityUser
     {
         public virtual Profile Profile { get; set; }
+
+        public ICollection<Order> Orders { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {
