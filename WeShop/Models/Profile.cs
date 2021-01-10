@@ -20,7 +20,7 @@ namespace WeShop.Models
 
 
         [Required]
-        [StringLength(10, MinimumLength = 10, ErrorMessage = "Phone number should be between 10 and 15 digits")]
+        [StringLength(10, MinimumLength = 10)]
         [RegularExpression(@"^0\d{9}|0\d{3}-\d{3}-\d{3}",
             ErrorMessage = "Not a valid phone number")]
         public string Phone { get; set; }

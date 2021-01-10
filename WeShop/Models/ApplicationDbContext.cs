@@ -7,6 +7,7 @@ namespace WeShop.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Profile> Profiles { get; set; }
+        public DbSet<Address> Addresses { get; set; }
 
         public ApplicationDbContext()
             : base("WeShopConnection", throwIfV1Schema: false)
