@@ -187,9 +187,9 @@
     <Compile Include="Migrations\202101101754363_AddAddress.Designer.cs">
       <DependentUpon>202101101754363_AddAddress.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202101101838591_LinkedUserToProfile.cs" />
-    <Compile Include="Migrations\202101101838591_LinkedUserToProfile.Designer.cs">
-      <DependentUpon>202101101838591_LinkedUserToProfile.cs</DependentUpon>
+    <Compile Include="Migrations\202101101935222_LinkedUserToProfile.cs" />
+    <Compile Include="Migrations\202101101935222_LinkedUserToProfile.Designer.cs">
+      <DependentUpon>202101101935222_LinkedUserToProfile.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
@@ -390,8 +390,8 @@
     <EmbeddedResource Include="Migrations\202101101754363_AddAddress.resx">
       <DependentUpon>202101101754363_AddAddress.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101101838591_LinkedUserToProfile.resx">
-      <DependentUpon>202101101838591_LinkedUserToProfile.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202101101935222_LinkedUserToProfile.resx">
+      <DependentUpon>202101101935222_LinkedUserToProfile.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

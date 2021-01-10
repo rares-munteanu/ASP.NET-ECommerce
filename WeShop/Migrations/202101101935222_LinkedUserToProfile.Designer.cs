@@ -13,7 +13,7 @@ namespace WeShop.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202101101838591_LinkedUserToProfile"; }
+            get { return "202101101935222_LinkedUserToProfile"; }
         }
         
         string IMigrationMetadata.Source

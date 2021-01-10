@@ -1,16 +1,15 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WeShop.Models
 {
     public class Profile
     {
-        [Key]
-        [ForeignKey("User")]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
+        [Required]
         public virtual User User { get; set; }
+        //public ICollection<Address> Address { get; set; }
 
         [Required]
         [StringLength(40, MinimumLength = 3, ErrorMessage = "First name should be between 3 and 40 characters")]
