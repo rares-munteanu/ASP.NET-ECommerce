@@ -40,6 +40,7 @@ namespace WeShop.Controllers
             private set { _userManager = value; }
         }
 
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -163,7 +164,6 @@ namespace WeShop.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-
 
         //
         // GET: /Account/ConfirmEmail
