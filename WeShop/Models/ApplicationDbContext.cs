@@ -9,10 +9,11 @@ namespace WeShop.Models
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<Item> Items { get; set; }
-        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+
         public DbSet<PaymentType> PaymentTypes { get; set; }
+
         public DbSet<Order> Orders { get; set; }
+        //public DbSet<ProductItem> ProductItems { get; set; }
 
         public ApplicationDbContext()
             : base("WeShopConnection", throwIfV1Schema: false)

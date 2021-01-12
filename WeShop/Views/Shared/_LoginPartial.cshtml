@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
+@using WeShop.Models
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new {id = "logoutForm"}))
@@ -10,9 +11,24 @@
                 @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new {title = "Manage", @class = "nav-link"})
             </li>
 
-            <li class="nav-item">
-                @Html.ActionLink("Profile", "Index", "Profile", "", new {@class = "nav-link"})
-            </li>
+
+            @if (!this.User.IsInRole(RoleName.CanManageProducts))
+            {
+                <li class="nav-item">
+                    @Html.ActionLink("Buy!", "Index", "Products", "", new {@class = "nav-link"})
+                </li>
+
+                <li class="nav-item">
+                    @Html.ActionLink("Profile", "Edit", "Profile", "", new {@class = "nav-link"})
+                </li>
+            }
+            @if (this.User.IsInRole(RoleName.CanManageProducts))
+            {
+                <li class="nav-item">
+                    @Html.ActionLink("Products", "Index", "Products", "", new {@class = "nav-link"})
+                </li>
+            }
+
 
             <li class="nav-item">
                 <a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>

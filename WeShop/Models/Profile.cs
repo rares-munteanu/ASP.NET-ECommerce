@@ -11,7 +11,8 @@ namespace WeShop.Models
         [Required]
         public User User { get; set; } // One-to-one cu User
 
-        public ICollection<Address> Address { get; set; }
+        //[Required]
+        public virtual ICollection<Address> Addresses { get; set; }
 
         [Required]
         [StringLength(40)]

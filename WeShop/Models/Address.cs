@@ -1,11 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WeShop.Models
 {
     public class Address
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[ForeignKey("Profile")]
         public int Id { get; set; }
 
+        [ForeignKey("ProfileId")]
         public Profile Profile { get; set; }
 
         [Required]

@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WeShop.Models
 {
@@ -7,16 +7,16 @@ namespace WeShop.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [ForeignKey("UserId")]
+
         public User User { get; set; }
 
         [Required]
-        public Address DeliveryAddress { get; set; }
+        public string UserId { get; set; }
 
         public PaymentType PaymentType { get; set; }
         public byte PaymentTypeId { get; set; }
 
-        [Required]
-        public ICollection<Product> Products { get; set; }
+        //public ICollection<ProductItem> ProductItems { get; set; }
     }
 }

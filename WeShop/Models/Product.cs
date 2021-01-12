@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WeShop.Models
 {
@@ -19,7 +18,5 @@ namespace WeShop.Models
         public string ImagePath { get; set; }
 
         public int NumberInStock { get; set; }
-
-        public ICollection<Item> Items { get; set; } //one-to-many cu Item
     }
 }
