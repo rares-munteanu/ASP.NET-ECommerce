@@ -15,7 +15,7 @@
             @if (!this.User.IsInRole(RoleName.CanManageProducts))
             {
                 <li class="nav-item">
-                    @Html.ActionLink("Buy!", "Index", "Products", "", new {@class = "nav-link"})
+                    @Html.ActionLink("Buy", "Index", "Products", "", new {@class = "nav-link"})
                 </li>
 
                 <li class="nav-item">

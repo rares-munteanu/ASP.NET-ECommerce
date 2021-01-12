@@ -13,7 +13,8 @@ namespace WeShop
                 "~/Scripts/bootbox.js",
                 "~/Scripts/toastr.js",
                 "~/Scripts/DataTables/jquery.dataTables.js",
-                "~/Scripts/DataTables/dataTables.bootstrap.js"));
+                "~/Scripts/DataTables/dataTables.bootstrap4.js"
+            ));
 
             //bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
             //    "~/Scripts/jquery-{version}.js",
@@ -40,8 +41,9 @@ namespace WeShop
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap-lumen.css",
-                "~/content/DataTables/css/dataTables.bootstrap.css",
                 "~/content/toastr.css",
+                "~/content/DataTables/css/dataTables.bootstrap4.css",
+                //"~/content/DataTables/css/jquery.dataTables.css",
                 "~/Content/site.css"));
         }
     }
