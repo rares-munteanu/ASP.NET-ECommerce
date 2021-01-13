@@ -19,8 +19,20 @@
                 </li>
 
                 <li class="nav-item">
+                    @Html.ActionLink("Shopping cart", "Index", "ProductItems", "", new {@class = "nav-link"})
+                </li>
+
+
+                <li class="nav-item">
+                    @Html.ActionLink("Orders", "Index", "Orders", "", new {@class = "nav-link"})
+                </li>
+
+
+                <li class="nav-item">
                     @Html.ActionLink("Profile", "Edit", "Profile", "", new {@class = "nav-link"})
                 </li>
+
+               
             }
             @if (this.User.IsInRole(RoleName.CanManageProducts))
             {
@@ -28,7 +40,9 @@
                     @Html.ActionLink("Products", "Index", "Products", "", new {@class = "nav-link"})
                 </li>
             }
-
+                
+            
+          
 
             <li class="nav-item">
                 <a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>

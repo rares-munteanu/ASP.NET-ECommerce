@@ -7,6 +7,7 @@ namespace WeShop.Models
         public byte Id { get; set; }
 
         [Required]
+        [Display(Name = "Payment type")]
         public string Name { get; set; }
 
         public static readonly byte Unknown = 0;

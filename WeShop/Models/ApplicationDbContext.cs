@@ -13,7 +13,7 @@ namespace WeShop.Models
         public DbSet<PaymentType> PaymentTypes { get; set; }
 
         public DbSet<Order> Orders { get; set; }
-        //public DbSet<ProductItem> ProductItems { get; set; }
+        public DbSet<ProductItem> ProductItems { get; set; }
 
         public ApplicationDbContext()
             : base("WeShopConnection", throwIfV1Schema: false)

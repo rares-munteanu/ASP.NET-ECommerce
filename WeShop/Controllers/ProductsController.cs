@@ -3,6 +3,8 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 
+using Microsoft.AspNet.Identity;
+
 using WeShop.Models;
 
 namespace WeShop.Controllers
@@ -18,7 +20,21 @@ namespace WeShop.Controllers
             if (User.IsInRole(RoleName.CanManageProducts))
                 return View(_context.Products.ToList());
 
+            var userID = User.Identity.GetUserId();
+
+            var activeUserOrder =
+                _context.Orders.Where(o => o.UserId == userID && o.OrderStatus == OrderStatus.NewOrder).ToList();
+
+            if (activeUserOrder.Count == 0)
+                return View("NewOrderNotFound");
+
+            ViewBag.ActiveOrderId = activeUserOrder[0].Id;
             return View("ReadOnlyList", _context.Products.ToList());
+        }
+
+        public ActionResult NewOrderNotFoundAction()
+        {
+            return View("NewOrderNotFound");
         }
 
         // GET: Products/Details/5

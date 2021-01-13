@@ -399,6 +399,29 @@ namespace WeShop.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+
+            var _context = new ApplicationDbContext();
+            var userID = User.Identity.GetUserId();
+
+            var activeUserOrder = _context.Orders.Where(o => o.UserId == userID).ToList();
+            if (activeUserOrder.Count != 0)
+            {
+                foreach (var order in activeUserOrder)
+                {
+                    var relatedProductsItem = _context.ProductItems.Where(pi => pi.OrderId == order.Id);
+                    foreach (var relatedProductItem in relatedProductsItem)
+                    {
+                        _context.ProductItems.Remove(relatedProductItem);
+                    }
+
+                    _context.Orders.Remove(order);
+                }
+            }
+
+            _context.SaveChanges();
+            _context.Dispose();
+
+
             return RedirectToAction("Index", "Home");
         }
 

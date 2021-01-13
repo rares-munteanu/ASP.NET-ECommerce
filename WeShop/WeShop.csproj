@@ -180,11 +180,16 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\ProductItemsController.cs" />
     <Compile Include="Controllers\Api\ProductsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\ProductItemsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Dtos\ActiveOrderDto.cs" />
+    <Compile Include="Dtos\ProductItemDto.cs" />
     <Compile Include="Dtos\ProfileWithAddressDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -245,9 +250,31 @@
     <Compile Include="Migrations\202101111948023_ErasedProductOrderDependency.Designer.cs">
       <DependentUpon>202101111948023_ErasedProductOrderDependency.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101121724560_AddProductItem.cs" />
+    <Compile Include="Migrations\202101121724560_AddProductItem.Designer.cs">
+      <DependentUpon>202101121724560_AddProductItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101121726049_LinkedOrderToProductItem.cs" />
+    <Compile Include="Migrations\202101121726049_LinkedOrderToProductItem.Designer.cs">
+      <DependentUpon>202101121726049_LinkedOrderToProductItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101121854587_AddedIdOfRelatedProductInProductItem.cs" />
+    <Compile Include="Migrations\202101121854587_AddedIdOfRelatedProductInProductItem.Designer.cs">
+      <DependentUpon>202101121854587_AddedIdOfRelatedProductInProductItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101121923196_AddedOrderStatusToOrder.cs" />
+    <Compile Include="Migrations\202101121923196_AddedOrderStatusToOrder.Designer.cs">
+      <DependentUpon>202101121923196_AddedOrderStatusToOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101121935334_AddedOrderIdToProductItem.cs" />
+    <Compile Include="Migrations\202101121935334_AddedOrderIdToProductItem.Designer.cs">
+      <DependentUpon>202101121935334_AddedOrderIdToProductItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\NeedProfileToConfirm.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderStatus.cs" />
     <Compile Include="Models\PaymentType.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductItem.cs" />
@@ -688,6 +715,22 @@
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Products\ReadOnlyList.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Delete.cshtml" />
+    <Content Include="Views\Orders\Details.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Orders\NewOrderExists.cshtml" />
+    <Content Include="Views\Products\NewOrderNotFound.cshtml" />
+    <Content Include="Views\ProductItems\Create.cshtml" />
+    <Content Include="Views\ProductItems\Delete.cshtml" />
+    <Content Include="Views\ProductItems\Details.cshtml" />
+    <Content Include="Views\ProductItems\Edit.cshtml" />
+    <Content Include="Views\ProductItems\Index.cshtml" />
+    <Content Include="Views\ProductItems\ShoppingCart.cshtml" />
+    <Content Include="Views\ProductItems\EmptyShoppingCart.cshtml" />
+    <Content Include="Views\Orders\OrderItems.cshtml" />
+    <Content Include="Views\Orders\OrderNotConfirmed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -745,6 +788,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101111948023_ErasedProductOrderDependency.resx">
       <DependentUpon>202101111948023_ErasedProductOrderDependency.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101121724560_AddProductItem.resx">
+      <DependentUpon>202101121724560_AddProductItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101121726049_LinkedOrderToProductItem.resx">
+      <DependentUpon>202101121726049_LinkedOrderToProductItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101121854587_AddedIdOfRelatedProductInProductItem.resx">
+      <DependentUpon>202101121854587_AddedIdOfRelatedProductInProductItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101121923196_AddedOrderStatusToOrder.resx">
+      <DependentUpon>202101121923196_AddedOrderStatusToOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101121935334_AddedOrderIdToProductItem.resx">
+      <DependentUpon>202101121935334_AddedOrderIdToProductItem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -5,24 +5,32 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <h1 class="py-2 shadow-lg p-3 mb-4 bg-light rounded text-center ">Products</h1>
 
 <table id="products" class="table table-bordered table-hover">
     <thead>
-        <tr>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Number in stock</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Buy</th>
-        </tr>
+    <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Number in stock</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Buy</th>
+    </tr>
     </thead>
     <tbody>
     </tbody>
 </table>
 
+
+<input id="activeOrderId" type="hidden" value="@ViewBag.ActiveOrderId.ToString()" />
+
+@*<hr />
+<div class="text-right">
+    <button class="btn btn-success mr-4">
+        Confirm order
+    </button>
+</div>*@
 
 
 @*<h1 class="py-2 shadow-lg p-3 mb-4 bg-light rounded text-center ">Shopping cart</h1>
@@ -57,12 +65,12 @@
                 lengthMenu: [2, 4, 6],
                 columnDefs: [
                     {
-                        targets: [0, 1, 2, 3, 4,5],
+                        targets: [0, 1, 2, 3, 4, 5],
                         className: "text-center"
                     },
                     {
                         orderable: false,
-                        targets: [-1,0]
+                        targets: [-1]
                     }
                 ],
                 columns: [
@@ -84,10 +92,11 @@
                         data: "description"
 
                     },
-
                     {
-                        data: "price"
-
+                        data: "price",
+                        render: function(data, type, product) {
+                            return `<p> ${data} </p>`;
+                        }
                     },
                     {
                         text: "Delete",
@@ -95,7 +104,13 @@
                             return `<div class="container">
                                         <div class="row">
                                             <div class="col text-center">
-                                              <button class="btn btn-primary add-to-cart-button" data-products-name="${product.id}">Add to cart</button>
+                                              <button class="btn btn-primary add-to-cart-button"
+                                                data-products-name="${product.name}"
+                                                data-products-id="${product.id}"
+                                                data-products-description = "${product.description}"
+                                                data-products-imagePath = "${product.imagePath}"
+                                                data-products-price = "${product.price}"
+                                                 >Add to cart</button>
                                                 @*<img class = "btn btn-primary add-to-cart-button" data-products-name="${product.id}" height="30" src="../../images/cart2.png" alt="" />*@
                                             </div>
                                         </div>
@@ -111,7 +126,41 @@
                 function() {
                     var button = $(this);
 
-                    toastr.success("Product successfully added to cart");
+                    var productItem = {
+                        ProductId: button.attr("data-products-id"),
+                        Name: button.attr("data-products-name"),
+                        Description: button.attr("data-products-description"),
+                        Price: button.attr("data-products-price"),
+                        ImagePath: button.attr("data-products-imagePath"),
+                        ActiveOrderId : $("#activeOrderId").attr("value")
+                    };
+
+
+                    @*console.log(productItem.ProductId);
+                    console.log(productItem.Name);
+                    console.log(productItem.Description);
+                    console.log(productItem.Price);
+                    console.log(productItem.ImagePath);*@
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/ProductItems",
+                        data: productItem,
+                        @*dataType: "json",*@
+                        success: function(response) {
+                            toastr.success("Product successfully added to cart");
+                        },
+                        error: function(xhr, ajaxOptions, thrownError) {
+                            if (xhr.status === 404) {
+                                console.log(thrownError);
+                                toastr.error("Something went wrong! Try again");
+                            }
+                        },
+                        fail: function() {
+                            toastr.error("Something went wrong! Try again");
+                        }
+                    });
+
                 });
 
         });

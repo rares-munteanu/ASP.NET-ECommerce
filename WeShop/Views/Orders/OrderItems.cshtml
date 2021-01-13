@@ -1,0 +1,72 @@
+﻿@model IEnumerable<WeShop.Models.ProductItem>
+
+@{
+    ViewBag.Title = "title";
+}
+
+<h1 class="py-2 shadow-lg p-3 mb-4 bg-light rounded text-center ">Order Items</h1>
+
+<table id="orderItems" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th class="text-center" >Image</th>
+            <th class="text-center">Name</th>
+            <th class="text-center">Quantity added</th>
+            <th class="text-center">Description</th>
+            <th class="text-center">Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-center">
+                    <img src="../..@item.ImagePath" width="50" height="50" alt="" />
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.ActionLink("Go back","Index","Orders","", new {@class="btn btn-primary mt-3 "})
+
+@section scripts
+{
+
+    <script>
+
+        $(document).ready(function() {
+
+
+            var table = $("#orderItems").DataTable({
+                pageLength: 5,
+                lengthMenu: [5, 10, 15],
+                columnDefs: [
+                    {
+                        targets: [0, 1, 2, 3, 4],
+                        className: "text-center"
+                    },
+                   
+                ]
+
+            });
+
+        });
+
+    </script>
+}

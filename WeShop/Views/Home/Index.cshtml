@@ -30,15 +30,25 @@
                     @*@Html.ActionLink("Manage products", "Index", "Products", "", new { @class = "btn btn-primary btn-lg" })*@
                 </div>
             }
-            else
+            else if(Request.IsAuthenticated)
             {
                 <div class="text-center ">
                     <a href="/products/index" class="btn btn-primary btn-lg">Start buying &raquo;</a>
                     @*@Html.ActionLink("Start buying @&raquo;", "Index", "Products", "", new {@class = "btn btn-primary btn-lg" })*@
                 </div>
             }
+            else
+            {
+                <div class="text-center ">
+                    <a href="/Account/Login?ReturnUrl=%2FHome%2Findex" class="btn btn-primary btn-lg">Start buying &raquo;</a>
+                    @*@Html.ActionLink("Start buying @&raquo;", "Index", "Products", "", new {@class = "btn btn-primary btn-lg" })*@
+                </div>
 
+            }
+
+        
         </div>
     </div>
 
 </div>
+

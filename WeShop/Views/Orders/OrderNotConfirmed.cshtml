@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Order not yet confirmed";
+}
+
+<hr />
+<h3 class="mt-5 py-2 shadow-lg p-3 mb-5 bg-white rounded text-center ">
+    You need to confirm in order to see the products!
+</h3>
+<div class="mr-3 mb-5 text-center">
+    @Html.ActionLink("Confirm order","ConfirmOrder","Orders","",new{@class="btn btn-success d-inline-block"})
+</div>
+

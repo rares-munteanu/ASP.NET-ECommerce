@@ -1,0 +1,166 @@
+﻿@model IEnumerable<WeShop.Models.ProductItem>
+@{
+    ViewBag.Title = "ShoppingCart";
+}
+
+<h1 class="py-2 shadow-lg p-3 mb-4 bg-light rounded text-center ">Shopping cart</h1>
+
+<table id="productItems" class="table table-bordered table-hover">
+    <thead>
+    <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Quantity added</th>
+        <th>Price per unit</th>
+        <th>Total per product</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<div class="text-right mt-3 mr-3">
+    @*<button id="confirm-order" class="btn btn-success ">Confirm order</button>*@
+    @Html.ActionLink("Confirm order","ConfirmOrder","Orders","",new{@class="btn btn-success"})
+</div>
+<input id="activeOrderId" type="hidden" value="@ViewBag.ActiveOrderId.ToString()"/>
+
+
+@section scripts
+{
+
+    <script>
+
+        $(document).ready(function() {
+
+
+            var table = $("#productItems").DataTable({
+                ajax: {
+                    url: "/api/ProductItems/?activeOrderId=" + $("#activeOrderId").attr("value"),
+                    method: "GET",
+                    data: "",
+                    dataSrc: ""
+                },
+                pageLength: 5,
+                lengthMenu: [5, 10, 15],
+                columnDefs: [
+                    {
+                        targets: [0, 1, 2, 3, 4, 5,6],
+                        className: "text-center"
+                    },
+                    {
+                        orderable: false,
+                        targets: [-1]
+                    }
+                ],
+                columns: [
+                    {
+                        data: "imagePath",
+                        render: function(data, type, productItem) {
+                            return `<img src="../..${productItem.imagePath}" alt="imagine ${productItem.name}" width="50" height="50"/>`;
+                        }
+                    },
+                    {
+                        data: "name"
+
+                    },
+                    {
+                        data: "description"
+
+                    },
+                    {
+                        data: "quantity"
+
+                    },
+                    {
+                        data: "price",
+                        render: function(data, type, productItem) {
+                            return `<p> ${data} </p>`;
+                        }
+                    },
+                    {
+                        data: "price",
+                        render: function(data, type, productItem) {
+                            return `<p> ${productItem.price*productItem.quantity} </p>`;
+                        }
+                    },
+                    {
+                        data: "",
+                        render: function (data, type, productItem) {
+
+                            @*console.log(productItem.name);*@
+
+                            return `
+                                 <div class="modify-product-item"
+                                    data-productItem-name="${productItem.name}"
+                                    data-productItem-productId="${productItem.idOfRelatedProduct}"
+                                    data-productItem-description="${productItem.description}"
+                                    data-productItem-imagePath="${productItem.imagePath}"
+                                    data-productItem-price="${productItem.price}"
+                                    >
+                                 <button class="btn btn-primary add_another_product_item">+</button> |
+                                 <button class="btn btn-primary take_another_product_item">-</button>
+                                 </div>
+                              `;
+                        }
+                    }
+                ]
+
+            });
+
+
+            $('#productItems').on('click',
+                ".add_another_product_item, .take_another_product_item",
+                function() {
+                    var button = $(".modify-product-item");
+
+                    var productItem = {
+                        ProductId: button.attr("data-productItem-productId"),
+                        Name: button.attr("data-productItem-name"),
+                        Description: button.attr("data-productItem-description"),
+                        Price: button.attr("data-productItem-price"),
+                        ImagePath: button.attr("data-productItem-imagePath"),
+                        ActiveOrderId: $("#activeOrderId").attr("value")
+                    };
+
+
+                    if ($(this).hasClass("add_another_product_item")) {
+                        productItem["Adding"] = true;
+
+
+                    } else if ($(this).hasClass("take_another_product_item")) {
+                        productItem["Adding"] = false;
+                    }
+
+                    console.log(productItem);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/ProductItems",
+                        data: productItem,
+                        @* dataType: "json",*@
+                        success: function(response) {
+                            if (productItem["Adding"] == true)
+                                toastr.success("Successfully added another item");
+                            else
+                                toastr.success("Successfully removed one item");
+                            table.ajax.reload();
+                        },
+                        error: function(xhr, ajaxOptions, thrownError) {
+                            if (xhr.status === 404) {
+                                console.log(thrownError);
+                                toastr.error("Something went wrong! Try again");
+                            }
+                        },
+                        fail: function() {
+                            toastr.error("Something went wrong! Try again");
+                        }
+                    });
+
+                });
+
+        });
+
+    </script>
+}

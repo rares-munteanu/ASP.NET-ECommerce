@@ -4,53 +4,54 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Details about the product</h2>
 
 <div>
-    <h4>Product</h4>
+
     <hr />
     <dl class="dl-horizontal">
-        <dt>
+        <dt class="  text-dark h3">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
 
-        <dd>
+        <dd class="btn btn-light disabled">
             @Html.DisplayFor(model => model.Name)
         </dd>
 
-        <dt>
+        <dt class="  text-dark h3">
             @Html.DisplayNameFor(model => model.Description)
         </dt>
 
-        <dd>
+        <dd class="btn btn-light disabled">
             @Html.DisplayFor(model => model.Description)
         </dd>
 
-        <dt>
+        <dt class=" text-dark h3">
             @Html.DisplayNameFor(model => model.Price)
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Price)
+        <dd class="btn btn-light disabled">
+            @Html.DisplayFor(model => model.Price) ron
         </dd>
 
-        <dt>
+        <dt class="text-dark h3">
             @Html.DisplayNameFor(model => model.ImagePath)
         </dt>
 
-        <dd>
+        <dd class="btn btn-light disabled">
             @Html.DisplayFor(model => model.ImagePath)
         </dd>
 
-        <dt>
+        <dt class="text-dark h3">
             @Html.DisplayNameFor(model => model.NumberInStock)
         </dt>
 
-        <dd>
+        <dd class="btn btn-light disabled">
             @Html.DisplayFor(model => model.NumberInStock)
         </dd>
 
     </dl>
+
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id },new {@class = "btn btn-primary"}) |
