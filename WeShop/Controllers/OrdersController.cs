@@ -9,6 +9,7 @@ using WeShop.Models;
 
 namespace WeShop.Controllers
 {
+    [Authorize]
     public class OrdersController : Controller
     {
         private ApplicationDbContext _context = new ApplicationDbContext();
@@ -203,16 +204,6 @@ namespace WeShop.Controllers
             //return View(order);
         }
 
-        // POST: Orders/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Order order = _context.Orders.Find(id);
-            _context.Orders.Remove(order);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
         protected override void Dispose(bool disposing)
         {

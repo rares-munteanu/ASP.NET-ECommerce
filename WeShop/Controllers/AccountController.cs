@@ -409,9 +409,14 @@ namespace WeShop.Controllers
             {
                 foreach (var order in activeUserOrder)
                 {
-                    var relatedProductsItem = _context.ProductItems.Where(pi => pi.OrderId == order.Id);
+                    var relatedProductsItem = _context.ProductItems.Where(pi => pi.OrderId == order.Id).ToList();
+                    //var relatedActualProducts
                     foreach (var relatedProductItem in relatedProductsItem)
                     {
+                        var relatedActualProduct =
+                            _context.Products.Single(p => p.Id == relatedProductItem.IdOfRelatedProduct);
+                        relatedActualProduct.NumberInStock += relatedProductItem.Quantity;
+
                         _context.ProductItems.Remove(relatedProductItem);
                     }
 
