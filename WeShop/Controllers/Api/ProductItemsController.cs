@@ -1,7 +1,4 @@
-﻿using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Net;
+﻿using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -23,6 +20,8 @@ namespace WeShop.Controllers.Api
         {
             var newProductItem = new ProductItem(productItemDto);
 
+            var relatedProduct = _context.Products.Single(p => p.Id == newProductItem.IdOfRelatedProduct);
+
             var productsItemInDb = _context.ProductItems
                 .Where(pi =>
                     pi.OrderId == newProductItem.OrderId && pi.IdOfRelatedProduct == newProductItem.IdOfRelatedProduct)
@@ -31,6 +30,7 @@ namespace WeShop.Controllers.Api
             if (productsItemInDb.Count == 0)
             {
                 _context.ProductItems.Add(newProductItem);
+                relatedProduct.NumberInStock--;
                 _context.SaveChanges();
                 return CreatedAtRoute("DefaultApi", new {id = newProductItem.Id}, newProductItem);
             }
@@ -38,14 +38,19 @@ namespace WeShop.Controllers.Api
             foreach (var productItemInDb in productsItemInDb)
             {
                 if (productItemDto.Adding)
+                {
                     productItemInDb.Quantity++;
+                    relatedProduct.NumberInStock--;
+                }
                 else if (productItemInDb.Quantity == 1)
                 {
                     _context.ProductItems.Remove(productItemInDb);
+                    relatedProduct.NumberInStock++;
                 }
                 else if (productItemInDb.Quantity > 0)
                 {
                     productItemInDb.Quantity--;
+                    relatedProduct.NumberInStock++;
                 }
 
                 _context.SaveChanges();
@@ -65,52 +70,52 @@ namespace WeShop.Controllers.Api
         }
 
         // GET: api/ProductItems/5
-        [ResponseType(typeof(ProductItem))]
-        public IHttpActionResult GetProductItem(int id)
-        {
-            ProductItem productItem = _context.ProductItems.Find(id);
-            if (productItem == null)
-            {
-                return NotFound();
-            }
+        //[ResponseType(typeof(ProductItem))]
+        //public IHttpActionResult GetProductItem(int id)
+        //{
+        //    ProductItem productItem = _context.ProductItems.Find(id);
+        //    if (productItem == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(productItem);
-        }
+        //    return Ok(productItem);
+        //}
 
         // PUT: api/ProductItems/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutProductItem(int id, ProductItem productItem)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[ResponseType(typeof(void))]
+        //public IHttpActionResult PutProductItem(int id, ProductItem productItem)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != productItem.Id)
-            {
-                return BadRequest();
-            }
+        //    if (id != productItem.Id)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            _context.Entry(productItem).State = EntityState.Modified;
+        //    _context.Entry(productItem).State = EntityState.Modified;
 
-            try
-            {
-                _context.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProductItemExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        _context.SaveChanges();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!ProductItemExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
         //// POST: api/ProductItems
         //[ResponseType(typeof(ProductItem))]
@@ -128,30 +133,30 @@ namespace WeShop.Controllers.Api
         //}
 
         // DELETE: api/ProductItems/5
-        [ResponseType(typeof(ProductItem))]
-        public IHttpActionResult DeleteProductItem(int id)
-        {
-            ProductItem productItem = _context.ProductItems.Find(id);
-            if (productItem == null)
-            {
-                return NotFound();
-            }
+        //[ResponseType(typeof(ProductItem))]
+        //public IHttpActionResult DeleteProductItem(int id)
+        //{
+        //    ProductItem productItem = _context.ProductItems.Find(id);
+        //    if (productItem == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            _context.ProductItems.Remove(productItem);
-            _context.SaveChanges();
+        //    _context.ProductItems.Remove(productItem);
+        //    _context.SaveChanges();
 
-            return Ok(productItem);
-        }
+        //    return Ok(productItem);
+        //}
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _context.Dispose();
-            }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        _context.Dispose();
+        //    }
 
-            base.Dispose(disposing);
-        }
+        //    base.Dispose(disposing);
+        //}
 
         private bool ProductItemExists(int id)
         {

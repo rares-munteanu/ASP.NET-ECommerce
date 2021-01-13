@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "Profile not configured";
+}
+
+<hr />
+<h3 class="mt-5 py-2 shadow-lg p-3 mb-5 bg-white rounded text-center ">
+    You need to configure a profile to make an order!
+</h3>
+<div class="mr-3 mb-5 text-center">
+    @Html.ActionLink("Configure profile", "Edit", "Profile","",new{@class="btn btn-primary d-inline-block"})
+</div>

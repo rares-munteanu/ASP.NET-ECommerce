@@ -17,6 +17,6 @@ namespace WeShop.Dtos
         [Required]
         public string ImagePath { get; set; }
 
-        public bool Adding { get; set; }
+        public bool Adding { get; set; } = true;
     }
 }

@@ -403,7 +403,8 @@ namespace WeShop.Controllers
             var _context = new ApplicationDbContext();
             var userID = User.Identity.GetUserId();
 
-            var activeUserOrder = _context.Orders.Where(o => o.UserId == userID).ToList();
+            var activeUserOrder = _context.Orders
+                .Where(o => o.UserId == userID && o.OrderStatus == OrderStatus.NewOrder).ToList();
             if (activeUserOrder.Count != 0)
             {
                 foreach (var order in activeUserOrder)

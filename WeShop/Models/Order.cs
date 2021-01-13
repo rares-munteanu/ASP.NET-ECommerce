@@ -21,6 +21,7 @@ namespace WeShop.Models
         public PaymentType PaymentType { get; set; }
 
         [Required]
+        //[Need18IfPayWithCard]
         public byte PaymentTypeId { get; set; }
 
         [Required]

@@ -1,5 +1,4 @@
-﻿@model IEnumerable<WeShop.Models.ProductItem>
-@{
+﻿@{
     ViewBag.Title = "ShoppingCart";
 }
 
@@ -22,7 +21,7 @@
 </table>
 <div class="text-right mt-3 mr-3">
     @*<button id="confirm-order" class="btn btn-success ">Confirm order</button>*@
-    @Html.ActionLink("Confirm order","ConfirmOrder","Orders","",new{@class="btn btn-success"})
+    @Html.ActionLink("Confirm order", "ConfirmOrder", "Orders", "", new {@class = "btn btn-success"})
 </div>
 <input id="activeOrderId" type="hidden" value="@ViewBag.ActiveOrderId.ToString()"/>
 
@@ -34,6 +33,7 @@
 
         $(document).ready(function() {
 
+            console.log($("#activeOrderId").attr("value"));
 
             var table = $("#productItems").DataTable({
                 ajax: {
@@ -46,7 +46,7 @@
                 lengthMenu: [5, 10, 15],
                 columnDefs: [
                     {
-                        targets: [0, 1, 2, 3, 4, 5,6],
+                        targets: [0, 1, 2, 3, 4, 5, 6],
                         className: "text-center"
                     },
                     {
@@ -82,14 +82,15 @@
                     {
                         data: "price",
                         render: function(data, type, productItem) {
-                            return `<p> ${productItem.price*productItem.quantity} </p>`;
+                            return `<p> ${productItem.price * productItem.quantity} </p>`;
                         }
                     },
                     {
-                        data: "",
-                        render: function (data, type, productItem) {
+                        data: "id",
+                        render: function(data, type, productItem, meta) {
 
                             @*console.log(productItem.name);*@
+
 
                             return `
                                  <div class="modify-product-item"
@@ -98,6 +99,7 @@
                                     data-productItem-description="${productItem.description}"
                                     data-productItem-imagePath="${productItem.imagePath}"
                                     data-productItem-price="${productItem.price}"
+                                    data-row-index="${meta.row}"
                                     >
                                  <button class="btn btn-primary add_another_product_item">+</button> |
                                  <button class="btn btn-primary take_another_product_item">-</button>
@@ -113,7 +115,7 @@
             $('#productItems').on('click',
                 ".add_another_product_item, .take_another_product_item",
                 function() {
-                    var button = $(".modify-product-item");
+                    var button = $(this).parent();
 
                     var productItem = {
                         ProductId: button.attr("data-productItem-productId"),
@@ -133,7 +135,6 @@
                         productItem["Adding"] = false;
                     }
 
-                    console.log(productItem);
 
                     $.ajax({
                         type: "POST",
@@ -159,7 +160,6 @@
                     });
 
                 });
-
         });
 
     </script>

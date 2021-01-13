@@ -20,9 +20,20 @@ namespace WeShop.Controllers
 
             var profile = _context.Users.Include("Profile").Single(u => u.Id == userID).Profile;
 
+            if (profile == null)
+            {
+                return View("ProfileNotFilled");
+            }
+
 
             var activeUserOrder =
-                _context.Orders.Where(o => o.UserId == userID && o.OrderStatus == OrderStatus.NewOrder).ToList()[0];
+                _context.Orders.Include("ProductItems")
+                    .Where(o => o.UserId == userID && o.OrderStatus == OrderStatus.NewOrder).ToList()[0];
+
+            if (activeUserOrder.ProductItems.Count == 0)
+            {
+                return RedirectToAction("EmptyShoppingCartAcction", "ProductItems");
+            }
 
             activeUserOrder.OrderStatus = OrderStatus.Confirmed;
 
@@ -54,7 +65,9 @@ namespace WeShop.Controllers
         // GET: Orders
         public ActionResult Index()
         {
-            var orders = _context.Orders.Include(o => o.PaymentType).Include(o => o.User);
+            var userID = User.Identity.GetUserId();
+            var orders = _context.Orders.Include(o => o.PaymentType).Include(o => o.User)
+                .Where(o => o.UserId == userID);
             return View(orders.ToList());
         }
 

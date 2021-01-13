@@ -35,6 +35,11 @@ namespace WeShop.Controllers
             return View("ShoppingCart", _context.ProductItems.Where(pi => pi.OrderId == activeOrderId).ToList());
         }
 
+        public ActionResult EmptyShoppingCartAcction()
+        {
+            return View("EmptyShoppingCart");
+        }
+
         // GET: ProductItems/Details/5
         public ActionResult Details(int? id)
         {

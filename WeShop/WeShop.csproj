@@ -272,7 +272,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
-    <Compile Include="Models\NeedProfileToConfirm.cs" />
+    <Compile Include="Models\Need18IfPayWithCard.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderStatus.cs" />
     <Compile Include="Models\PaymentType.cs" />
@@ -464,6 +464,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="images\aragaz.jpg" />
     <Content Include="images\background.jpg" />
+    <Content Include="images\boxa-portabila.jpg" />
     <Content Include="images\cart.png" />
     <Content Include="images\logo.png" />
     <Content Include="images\cart2.png" />
@@ -731,6 +732,7 @@
     <Content Include="Views\ProductItems\EmptyShoppingCart.cshtml" />
     <Content Include="Views\Orders\OrderItems.cshtml" />
     <Content Include="Views\Orders\OrderNotConfirmed.cshtml" />
+    <Content Include="Views\Orders\ProfileNotFilled.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

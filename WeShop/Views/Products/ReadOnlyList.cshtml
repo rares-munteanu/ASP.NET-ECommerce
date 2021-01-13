@@ -56,7 +56,7 @@
 
         $(document).ready(function() {
 
-            $("#products").DataTable({
+            var table = $("#products").DataTable({
                 ajax: {
                     url: "/api/products",
                     dataSrc: ""
@@ -132,7 +132,7 @@
                         Description: button.attr("data-products-description"),
                         Price: button.attr("data-products-price"),
                         ImagePath: button.attr("data-products-imagePath"),
-                        ActiveOrderId : $("#activeOrderId").attr("value")
+                        ActiveOrderId: $("#activeOrderId").attr("value")
                     };
 
 
@@ -149,6 +149,7 @@
                         @*dataType: "json",*@
                         success: function(response) {
                             toastr.success("Product successfully added to cart");
+                            table.ajax.reload();
                         },
                         error: function(xhr, ajaxOptions, thrownError) {
                             if (xhr.status === 404) {
